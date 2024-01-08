@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let a=10;
+    // var a =10
+    // const a =10
+    a= a+1;
+    console.log("a",a);
+    function hello()
+    {
+        console.log("Hello i am into js function")
+    }
+    let obja = {
+        'a':1,
+        'b':2,
+        func: function myfunc(number)
+        {
+            console.log("into fuunction of obja" + number);
+        },
+    }
+    document.addEventListener("click", function click(){
+        // console.log("hiiiiiiiiiiiiii");
+        // alert("hi");
+        let conf = confirm("are you sure");
+        console.log(conf);
+    })
+
+    let arr = [1,2,3];
+    setTimeout(() => {
+        
+        console.log("yaayyyyyyyyyyyyyyyyy");
+    }, 3000);
+    console.log("i am the lower script");
+
+</script>
+<body>
+    <h1> I am Learning Js </h1>
+</body>
+</html>
