@@ -2,9 +2,20 @@ import React, { useState } from 'react';
 
 export default function TextForm() {
   const [textbb, settext] = useState("Enter the Text");
+  const [email, setemail] = useState("Enter the Email");
+  const [textbox2Text, setTextbox2Text] = useState("");
+
+  const emailCase = (event) => {
+    const op = String(event.target.value);
+    setemail(op.toLowerCase());
+  };
 
   const uppercase = (event) => {
     settext(event.target.value.toUpperCase());
+  };
+
+  const convertUppercase = () => {
+    setTextbox2Text(textbox2Text.toUpperCase());
   };
 
   return (
@@ -12,7 +23,7 @@ export default function TextForm() {
       <form>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+          <input type="email" className="form-control" onChange={emailCase} value={email} id="exampleInputEmail1" aria-describedby="emailHelp"/>
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3">
@@ -33,6 +44,15 @@ export default function TextForm() {
           value={textbb}
           onChange={uppercase}
         ></textarea>
+      </div>
+      <div className="mb-3">
+        <textarea
+          className="form-control"
+          rows="5"
+          value={textbox2Text}
+          onChange={(e) => setTextbox2Text(e.target.value)}
+        ></textarea>
+        <button onClick={convertUppercase}>Convert to Uppercase</button>
       </div>
     </div>
   );
