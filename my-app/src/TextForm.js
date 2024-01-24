@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 export default function TextForm() {
   const [textbb, settext] = useState("Enter the Text");
   const [email, setemail] = useState("Enter the Email");
-  const [textbox2Text, setTextbox2Text] = useState("");
+  const [textbox2Text, setTextbox2Text] = useState('');
 
   const emailCase = (event) => {
     const op = String(event.target.value);
+
     setemail(op.toLowerCase());
   };
 
@@ -17,6 +18,21 @@ export default function TextForm() {
   const convertUppercase = () => {
     setTextbox2Text(textbox2Text.toUpperCase());
   };
+
+  const convertlowercase = () =>
+  {
+    setTextbox2Text(textbox2Text.toLowerCase());
+
+  }
+
+
+  const cleartext = () =>
+  {
+    setTextbox2Text('');
+
+  }
+
+
 
   return (
     <div>
@@ -51,9 +67,22 @@ export default function TextForm() {
           rows="5"
           value={textbox2Text}
           onChange={(e) => setTextbox2Text(e.target.value)}
-        ></textarea>
+        >
+
+
+        </textarea>
         <button onClick={convertUppercase}>Convert to Uppercase</button>
+        <button onClick={convertlowercase}>Convert to LowerCase</button>
+        <button onClick={cleartext}>CLEAR</button>
+
+
       </div>
+      <div className='container'>
+        <p>{textbox2Text.split(" ").length}  words used  & Total Letters {textbox2Text.length} </p>
+        <p>Preview</p>
+        {textbox2Text}
+      </div>
+
     </div>
   );
 }
