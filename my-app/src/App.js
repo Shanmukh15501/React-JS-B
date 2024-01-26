@@ -1,21 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './Navbar';
-import TextForm from './TextForm'
+import TextForm from './TextForm';
 import Posts from './Posts';
+import { Shanmukh, Revan } from './Classs';
 
 const App = () => {
   return (
     <div>
       {/* <Navbar title="Navigation Menu" /> */}
       {/* <div className="container"> */}
-        {/* <TextForm /> */}
+      {/* <TextForm /> */}
       {/* </div> */}
     
-    <Posts/>
-    
-    
-    
+      <Posts />
+      <Revan name="revan"   color="blue"/>
+      <Shanmukh name="shanu" />
+
     </div>
   );
 };
