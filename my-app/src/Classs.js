@@ -35,6 +35,8 @@ class Revan extends React.Component {
       year: 1964,
       status:false
     };
+
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -70,12 +72,7 @@ class Revan extends React.Component {
   }
 
   checkResult = () => {
-    console.log("Check Result Clicked", this.props.color);
-    console.log("Check Result state", this.state.status);
-    console.log("Check Result super state", super.state.status);
-
-
-    // super.state.status=true
+   console.log("SSSSSSSSSSSSssss");
   };
 
   render() {

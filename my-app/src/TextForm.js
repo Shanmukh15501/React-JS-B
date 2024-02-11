@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 
-export default function TextForm() {
+import Alert from './alert';
+
+export default function TextForm(props) {
   const [textbb, settext] = useState("Enter the Text");
   const [email, setemail] = useState("Enter the Email");
   const [textbox2Text, setTextbox2Text] = useState('');
+  const [togglebox, settogglebox] = useState({ backgroundColor: "pink" , color:"green"});
+  const [toggletext, settoggletext] = useState("Enable Dark Mode");
+
 
   const emailCase = (event) => {
     const op = String(event.target.value);
@@ -11,17 +16,42 @@ export default function TextForm() {
     setemail(op.toLowerCase());
   };
 
+  const togglebuttonfunc = (event) =>
+  {
+    const op = String(event.target.value);
+    console.log("into func",op);
+
+    if (op === "Enable Dark Mode")
+    {
+      console.log("into if",op);
+      settogglebox({ backgroundColor: "black" , color:"green"});
+      settoggletext("Enable Pink Mode");
+      props.showalert("Enabled Dark Mode");
+ 
+    }
+    else
+    {
+      console.log("into elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",op);
+      settogglebox({ backgroundColor: "pink" , color:"green"});
+      settoggletext("Enable Dark Mode");
+      props.showalert("Enabled Pink Mode");
+    }
+
+  }
+
   const uppercase = (event) => {
     settext(event.target.value.toUpperCase());
   };
 
   const convertUppercase = () => {
+    console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
     setTextbox2Text(textbox2Text.toUpperCase());
+    props.showalert("Converted To Upper Case");
   };
-
   const convertlowercase = () =>
   {
     setTextbox2Text(textbox2Text.toLowerCase());
+    props.showalert("Converted To Lower Case");
 
   }
 
@@ -35,7 +65,21 @@ export default function TextForm() {
 
 
   return (
-    <div>
+    <div style={togglebox} >
+
+
+
+
+
+
+
+
+<div className="form-check form-switch">
+  <input className="form-check-input" type="checkbox" onClick={togglebuttonfunc} value={toggletext} id="flexSwitchCheckDefault"/>
+  <label className="form-check-label" for="flexSwitchCheckDefault"  > {toggletext} </label>
+</div>
+
+
       <form>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -82,7 +126,6 @@ export default function TextForm() {
         <p>Preview</p>
         {textbox2Text}
       </div>
-
     </div>
   );
 }
