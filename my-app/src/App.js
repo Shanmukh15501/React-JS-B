@@ -6,6 +6,7 @@ import Posts from './Posts';
 import  Revan from './Classs';
 import Alert from './alert';
 import { useState } from 'react';
+import SecondFunc from './eventfunc'
 
 const App = () => {
   const [alert,setalert] = useState(null)
@@ -36,6 +37,7 @@ const App = () => {
       {/* // <Revan name="revan"   color="blue"/> */}
        {/* <Shanmukh name="shanu" /> */}
     <Alert message={alert}/>;
+    <SecondFunc/>
 
 
     </div>
