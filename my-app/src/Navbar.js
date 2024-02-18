@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { Outlet, Link } from "react-router-dom";
 
 
+<Link to="/">Home</Link>
 const Navbar = (props) => 
 {
 

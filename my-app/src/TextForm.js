@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Alert from './alert';
+import Alert from './Alert';
 
 export default function TextForm(props) {
   const [textbb, settext] = useState("Enter the Text");
@@ -26,7 +26,7 @@ export default function TextForm(props) {
       console.log("into if",op);
       settogglebox({ backgroundColor: "black" , color:"green"});
       settoggletext("Enable Pink Mode");
-      props.showalert("Enabled Dark Mode");
+      props.showAlert("Enabled Dark Mode");
  
     }
     else
@@ -34,7 +34,7 @@ export default function TextForm(props) {
       console.log("into elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",op);
       settogglebox({ backgroundColor: "pink" , color:"green"});
       settoggletext("Enable Dark Mode");
-      props.showalert("Enabled Pink Mode");
+      props.showAlert("Enabled Pink Mode");
     }
 
   }
@@ -46,12 +46,12 @@ export default function TextForm(props) {
   const convertUppercase = () => {
     console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
     setTextbox2Text(textbox2Text.toUpperCase());
-    props.showalert("Converted To Upper Case");
+    props.showAlert("Converted To Upper Case");
   };
   const convertlowercase = () =>
   {
     setTextbox2Text(textbox2Text.toLowerCase());
-    props.showalert("Converted To Lower Case");
+    props.showAlert("Converted To Lower Case");
 
   }
 

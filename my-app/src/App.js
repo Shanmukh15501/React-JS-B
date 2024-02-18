@@ -1,51 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import TextForm from './TextForm';
 import Posts from './Posts';
-import  Revan from './Classs';
-import Alert from './alert';
-import { useState } from 'react';
-import SecondFunc from './eventfunc'
+import Alert from './Alert';
+import SecondFunc from './eventfunc';
+import Home from './Homes';
 
-const App = () => {
-  const [alert,setalert] = useState(null)
-  const showalert = (messages) =>
-  {
-    if (messages != null)
-    {
-      setalert(messages);
-      setTimeout(()=>
-      {
-        setalert(null);
-      },1500
-      )
+function App() {
+  const [alert, setAlert] = useState(null);
 
+  const showAlert = (message) => {
+    if (message != null) {
+      setAlert(message);
+      setTimeout(() => {
+        setAlert(null);
+      }, 1500);
+    } else {
+      setAlert(null);
     }
-    else
-    {
-      setalert(null);
-    }
-  }
+  };
+
   return (
     <div>
-      {/* <Navbar title="Navigation Menu" />  */}
-      {/* <div className="container"> */}
-      <TextForm showalert={showalert}/>
-    
-      {/* // <Posts /> */}
-      {/* // <Revan name="revan"   color="blue"/> */}
-       {/* <Shanmukh name="shanu" /> */}
-    <Alert message={alert}/>;
-    <SecondFunc/>
-
-
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/navbar" element={<Navbar title="Navigation Menu" />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/alert" element={<Alert message={alert} />} />
+          <Route path="/textform" element={<TextForm showAlert={showAlert} />} />
+          <Route path="/secondfunc" element={<SecondFunc />} />
+        </Routes>
+      </Router>
     </div>
   );
-};
+}
 
 export default App;
-
-
-
-
