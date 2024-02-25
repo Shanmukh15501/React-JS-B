@@ -1,110 +1,101 @@
 import React, { Component } from 'react';
-import NewsItem from './NewsItem'; // Assuming NewsItem is a component you have defined
+import NewsItem from './NewsItem';
+import Pagination from './Pagination';
 
 class NewsApp extends Component {
-  constructor(props) 
-  {
+  constructor(props) {
     super(props);
-    this.state =
+    this.state = {
+      response: [],
+      page_numbers:[],
+      articles: [],
+      articles_per_page: 10,
+      current_page: 1
+
+    };
     
-    {
-      response: [], // Your array of news articles
-      currentPage: 1,
-      articlesPerPage: 10, // Number of articles per page
-      index:1
+  this.updateCurrentPage = this.updateCurrentPage.bind(this);
+  this.componentDidMount = this.componentDidMount.bind(this);
+  this.handleContent =  this.handleContent.bind(this);
+  this.handlePageNumbering = this.handlePageNumbering.bind(this);
+  
+  }
+
+  updateCurrentPage = (pageNumber) => {
+    console.log("current_page", this.state.current_page);
+    this.setState({ current_page: pageNumber }, () => {
+      // After setting the current page, update articles based on the new page
+      this.handlePageNumbering(this.state.response);
+    });
+  };
+  
+  
+
+  componentDidMount() 
+  {
+    this.handleContent();
+  }
+
+  async handleContent() {
+    try {
+      const response = await fetch("https://newsapi.org/v2/everything?q=bitcoin&apiKey=28b6447ca97b4e29a0e13f498d4e9a38");
+      if (response.ok) {
+        const json = await response.json();
+        if (json.hasOwnProperty('articles')) {
+          const filteredArticles = json.articles.filter(article =>
+            article.title && article.description && article.urlToImage
+          );
+          this.setState({ response: filteredArticles });
+          this.handlePageNumbering(filteredArticles);
+          let end_count = 0;
+          if (filteredArticles.length%10 === 0)
+          {
+            end_count = filteredArticles.length/10;
+          }
+          else
+          {
+            end_count = (filteredArticles.length/10) +1 ;
+          }
+          let page_num = []
+          for (let i = 1; i <= end_count; i++)
+         {
+            page_num.push(i);
+         }
+         this.setState({ page_numbers: page_num})
+
+        }
+      } else {
+        throw new Error("HTTP-Error: " + response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   }
 
-  handlePageChange = (pageNumber,index) => {
-    this.setState({ currentPage: pageNumber });
-    this.setState({ index: index });
-
-  };
-  
-    componentDidMount() 
-    {
-      this.fetchCarData();
-    }
-
-    
-  
-  
-    fetchCarData = async () => {
-      try {
-        const response = await fetch('https://newsapi.org/v2/everything?q=bitcoin&apiKey=28b6447ca97b4e29a0e13f498d4e9a38');
-        if (!response.ok) {
-          throw new Error('Failed to fetch car data');
-        }
-        const data = await response.json();
-        if (data.hasOwnProperty('articles')) 
-        {
-          var articles = data.articles;
-     
-        }
-        else
-        {
-          console.error('No "articles" key found in the JSON data.');
-        }
-        this.setState({ response: articles });
-      } catch (error) {
-        this.setState({ error: error.message });
-      }
-  };
+  handlePageNumbering(articles) {
+    const { current_page, articles_per_page } = this.state;
+    const last_index = current_page * articles_per_page;
+    const first_index = last_index - articles_per_page;
+    this.setState({ articles: articles.slice(first_index, last_index) });
+  }
 
   render() {
-    // Calculate pagination values
-    const { response, currentPage, articlesPerPage } = this.state;
-    const indexOfLastArticle = currentPage * articlesPerPage;
-    const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-    const currentArticles = response.slice(indexOfFirstArticle, indexOfLastArticle);
+    const { articles } = this.state;
 
     return (
-      <div className="container my-3">
-        <h2>News App Headlines</h2>
-
+      <div className='container'>
         <div className="row">
-          {currentArticles.map((article, index) => (
+          {articles.map((item, index) => (
             <div key={index} className="col-md-4">
-              <NewsItem
-                title={article.title}
-                description={article.description}
-                url={article.urlToImage
-                }
-                // Pass any other props you need
-              />
+              <NewsItem title={item.title} description={item.description} url={item.urlToImage} />
             </div>
           ))}
         </div>
 
-        <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-  <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.currentPage-1)}>Prev</a></li>
-    <li class="page-item"><a class="page-link" href="#" 
-    onClick={this.handlePageChange.bind(this, this.state.index,this.state.index)}>{this.state.index}</a></li>
-    <li class="page-item"><a class="page-link" href="#" 
-    onClick={this.handlePageChange.bind(this, this.state.index+1,this.state.index)}>{this.state.index+1}</a></li>
-    <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+2,this.state.index)}>{this.state.index+2}</a></li>
-    <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+3,this.state.index)}>{this.state.index+3}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+4,this.state.index)}>{this.state.index+4}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+5,this.state.index)}>{this.state.index+5}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+6,this.state.index)}>{this.state.index+6}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+7,this.state.index)}>{this.state.index+7}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+8,this.state.index)}>{this.state.index+8}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.index+9,this.state.index)}>{this.state.index+9}</a></li>
-        <li class="page-item"><a class="page-link" href="#"
-    onClick={this.handlePageChange.bind(this, this.state.currentPage+1,this.state.currentPage+1)}>Next</a></li>
+        
+        <Pagination page_numbers={this.state.page_numbers} updateCurrentPage={this.updateCurrentPage} />
 
-  </ul>
-</nav>
+        
       </div>
     );
   }
