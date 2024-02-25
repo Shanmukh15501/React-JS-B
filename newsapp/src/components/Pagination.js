@@ -66,9 +66,6 @@ export class Pagination extends Component {
             </li>
             {page_index.map((item, index) => (
               <li key={index} className="page-item">
-                <h6>{item}</h6>
-                <h6>----{index}</h6>
-
                 <button className="page-link" onClick={() => this.props.updateCurrentPage(item)}>{item}</button>
               </li>
             ))}

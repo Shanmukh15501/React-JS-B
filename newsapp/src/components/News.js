@@ -38,7 +38,7 @@ class NewsApp extends Component {
 
   async handleContent() {
     try {
-      const response = await fetch("https://newsapi.org/v2/everything?q=bitcoin&apiKey=28b6447ca97b4e29a0e13f498d4e9a38");
+      const response = await fetch("https://newsapi.org/v2/everything?q=bitcoin&apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
       if (response.ok) {
         const json = await response.json();
         if (json.hasOwnProperty('articles')) {
